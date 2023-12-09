@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Author: Andrew Olsen
+ * Last Updated: 12/07/2023
+ * Controls player camera position/rotation
+ */
 public class CameraManager : MonoBehaviour
 {
     InputManager inputManager;
@@ -25,6 +30,7 @@ public class CameraManager : MonoBehaviour
     public float pivotAngle;
     public float minimumPivotAngle = -35;
     public float maximumPivotAngle = 35;
+    public float pivotHeight = 1;
 
     private void Awake()
     {
@@ -34,6 +40,9 @@ public class CameraManager : MonoBehaviour
         defaultPosition = cameraTransform.localPosition.z;
     }
 
+    /// <summary>
+    /// Handles all camera movement-related functions.
+    /// </summary>
     public void HandleAllCameraMovement()
     {
         FollowTarget();
@@ -41,6 +50,9 @@ public class CameraManager : MonoBehaviour
         HandleCameraCollisions();
     }
 
+    /// <summary>
+    /// Makes sure the camera follows the player.
+    /// </summary>
     public void FollowTarget()
     {
         Vector3 targetPosition = Vector3.SmoothDamp
@@ -49,6 +61,9 @@ public class CameraManager : MonoBehaviour
         transform.position = targetPosition;
     }
 
+    /// <summary>
+    /// Rotates the camera around the player.
+    /// </summary>
     public void RotateCamera()
     {
         Vector3 rotation;
@@ -69,6 +84,9 @@ public class CameraManager : MonoBehaviour
         cameraPivot.localRotation = targetRotation;
     }
 
+    /// <summary>
+    /// Keeps the camera from clipping through the walls.
+    /// </summary>
     private void HandleCameraCollisions()
     {
         float targetPosition = defaultPosition;

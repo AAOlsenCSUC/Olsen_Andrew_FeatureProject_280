@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Author: Andrew Olsen
+ * Last Updated: 12/07/2023
+ * Controls player movement
+ */
 public class PlayerMovement : MonoBehaviour
 {
-    InputManager inputManager;
+    public InputManager inputManager;
 
-    Vector3 moveDirection;
-    Transform cameraObject;
-    Rigidbody playerRigidbody;
+    public Vector3 moveDirection;
+    public Transform cameraObject;
+    public Rigidbody playerRigidbody;
 
-    public float movementSpeed = 2;
+    public float movementSpeed;
     public float rotationSpeed = 15;
 
     private void Awake()
@@ -20,12 +25,18 @@ public class PlayerMovement : MonoBehaviour
         cameraObject = Camera.main.transform;
     }
 
+    /// <summary>
+    /// Handles all movement controls for the player.
+    /// </summary>
     public void HandleAllMovement()
     {
         HandleMovement();
         HandleRotation();
     }
 
+    /// <summary>
+    /// Controls the player's directional movement.
+    /// </summary>
     private void HandleMovement()
     {
         moveDirection = cameraObject.forward * inputManager.verticalInput;
@@ -38,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody.velocity = movementVelocity;
     }
 
+    /// <summary>
+    /// Controls the player's rotational movement.
+    /// </summary>
     private void HandleRotation()
     {
         Vector3 targetDirection = Vector3.zero;
